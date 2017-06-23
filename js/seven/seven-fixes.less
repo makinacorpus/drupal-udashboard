@@ -1,4 +1,31 @@
 
+@border-radius-base: 20px;
+@border-radius-dropdown: 4px;
+@cursor-disabled: '';
+@line-height-base: 13px;
+@line-height-computed: 20px;
+@padding-base-horizontal: 5px;
+@padding-base-vertical: 10px;
+@padding-button-horizontal: 4px;
+@padding-button-vertical: 17px;
+@pager-bg: '';
+@pager-border-radius: '';
+@pager-border: '';
+@pager-disabled-color: '';
+@pager-hover-bg: '';
+@pagination-active-bg: '';
+@pagination-active-border: '';
+@pagination-active-color: '';
+@pagination-bg: '';
+@pagination-border: '';
+@pagination-color: '';
+@pagination-disabled-bg: '';
+@pagination-disabled-border: '';
+@pagination-disabled-color: '';
+@pagination-hover-bg: '';
+@pagination-hover-border: '';
+@pagination-hover-color: '';
+
 /******************************************************************************
  *
  * Utility classes
@@ -55,7 +82,7 @@ ul.list-unstyled {
 
 .btn {
   cursor: pointer;
-  padding: 4px 17px;
+  padding: @padding-button-horizontal @padding-button-vertical;
   margin-bottom: 1em;
   margin-right: 1em; /* LTR */
   color: #5a5a5a;
@@ -68,12 +95,149 @@ ul.list-unstyled {
   border-left-color: #d2d2d2;
   border-right-color: #d2d2d2;
   background: url(/themes/seven/images/buttons.png) 0 0 repeat-x;
-  -moz-border-radius: 20px;
-  -webkit-border-radius: 20px;
-  border-radius: 20px;
+  -moz-border-radius: @border-radius-base;
+  -webkit-border-radius: @border-radius-base;
+  border-radius: @border-radius-base;
 }
 a.btn:hover {
   text-decoration: none;
+}
+
+/******************************************************************************
+ *
+ * Pagination (bootstrap code)
+ *
+ ******************************************************************************/
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: @line-height-computed 0;
+  border-radius: @border-radius-base;
+
+  > li {
+    display: inline; // Remove list-style and block-level defaults
+    > a,
+    > span {
+      // Make it Drupalist
+      .btn();
+      margin: 0;
+      border-radius: 0;
+
+      position: relative;
+      float: left; // Collapse white-space
+      padding: @padding-button-horizontal @padding-button-vertical;
+      line-height: @line-height-base;
+      text-decoration: none;
+      color: @pagination-color;
+      background-color: @pagination-bg;
+      border: 1px solid @pagination-border;
+      margin-left: -1px;
+    }
+    &:first-child {
+      > a,
+      > span {
+        margin-left: 0;
+        border-top-left-radius: @border-radius-base;
+        border-bottom-left-radius: @border-radius-base;
+      }
+    }
+    &:last-child {
+      > a,
+      > span {
+        border-top-right-radius: @border-radius-base;
+        border-bottom-right-radius: @border-radius-base;
+      }
+    }
+  }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      z-index: 2;
+      color: @pagination-hover-color;
+      background-color: @pagination-hover-bg;
+      border-color: @pagination-hover-border;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      z-index: 3;
+      color: @pagination-active-color;
+      background-color: @pagination-active-bg;
+      border-color: @pagination-active-border;
+      cursor: default;
+    }
+  }
+
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      color: @pagination-disabled-color;
+      background-color: @pagination-disabled-bg;
+      border-color: @pagination-disabled-border;
+      cursor: @cursor-disabled;
+    }
+  }
+}
+
+.pager {
+  padding-left: 0;
+  margin: @line-height-computed 0;
+  list-style: none;
+  text-align: center;
+  &:extend(.clearfix all);
+  li {
+    display: inline;
+    > a,
+    > span {
+      display: inline-block;
+      padding: 5px 14px;
+      background-color: @pager-bg;
+      border: 1px solid @pager-border;
+      border-radius: @pager-border-radius;
+    }
+
+    > a:hover,
+    > a:focus {
+      text-decoration: none;
+      background-color: @pager-hover-bg;
+    }
+  }
+
+  .next {
+    > a,
+    > span {
+      float: right;
+    }
+  }
+
+  .previous {
+    > a,
+    > span {
+      float: left;
+    }
+  }
+
+  .disabled {
+    > a,
+    > a:hover,
+    > a:focus,
+    > span {
+      color: @pager-disabled-color;
+      background-color: @pager-bg;
+      cursor: @cursor-disabled;
+    }
+  }
 }
 
 /******************************************************************************
@@ -114,7 +278,6 @@ a.btn:hover {
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: 0;
   z-index: 100;
   display: none;
   float: left;
@@ -130,9 +293,9 @@ a.btn:hover {
   border-left-color: #d2d2d2;
   border-right-color: #d2d2d2;
 
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
+  -moz-border-radius: @border-radius-dropdown;
+  -webkit-border-radius: @border-radius-dropdown;
+  border-radius: @border-radius-dropdown;
 
   box-shadow: 0 6px 12px rgba(0,0,0,.175);
   background-clip: padding-box;
@@ -145,7 +308,6 @@ a.btn:hover {
   display: block;
   padding: 3px 20px;
   clear: both;
-  font-weight: normal;
   line-height: 2em;
   white-space: nowrap;
 
@@ -181,12 +343,12 @@ table .dropdown-menu > li > a {
   margin: 0;
 }
 .btn-group .btn:first-child {
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
+  border-top-left-radius: @border-radius-base;
+  border-bottom-left-radius: @border-radius-base;
 }
 .btn-group > .btn:last-child, .btn-group > .btn-group > .btn:last-of-type {
-  border-top-right-radius: 20px;
-  border-bottom-right-radius: 20px;
+  border-top-right-radius: @border-radius-base;
+  border-bottom-right-radius: @border-radius-base;
 }
 .btn-group .btn-group > .btn {
   -moz-border-radius: 0;
