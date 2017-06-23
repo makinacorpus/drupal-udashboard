@@ -278,7 +278,7 @@
           </li>
         {% endif %}
         {% for index in state.pageRange %}
-          <li>
+          <li{% if index == page %} class="active"{% endif %}>
             {{ block('pager_link') }}
           </li>
         {% endfor %}

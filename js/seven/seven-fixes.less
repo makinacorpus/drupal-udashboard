@@ -80,6 +80,13 @@ ul.list-unstyled {
  *
  ******************************************************************************/
 
+.btn-active() {
+  border-color: #555555;
+  background-image: none;
+  background-color: #666666;
+  color: white;
+}
+
 .btn {
   cursor: pointer;
   padding: @padding-button-horizontal @padding-button-vertical;
@@ -98,6 +105,10 @@ ul.list-unstyled {
   -moz-border-radius: @border-radius-base;
   -webkit-border-radius: @border-radius-base;
   border-radius: @border-radius-base;
+
+  &:hover {
+    .btn-active();
+  }
 }
 a.btn:hover {
   text-decoration: none;
@@ -168,9 +179,7 @@ a.btn:hover {
     &:hover,
     &:focus {
       z-index: 3;
-      color: @pagination-active-color;
-      background-color: @pagination-active-bg;
-      border-color: @pagination-active-border;
+      .btn-active();
       cursor: default;
     }
   }
