@@ -27,6 +27,13 @@
           </li>
         {% endif %}
       </ul>
+      {% if breadcrumb %}
+        <ul class="nav navbar-nav">
+          {% for link in breadcrumb %}
+            <li>{{ link }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
     </div>
 
     {%- if user.authenticated -%}
