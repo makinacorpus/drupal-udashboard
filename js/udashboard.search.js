@@ -69,7 +69,13 @@
           _.each(search.searchQuery.facets(), function (obj) {
             $.extend(query, obj);
           });
-          location.href = location.pathname + '?' + $.param(query);
+
+          var newLocation = location.pathname;
+          if (!$.isEmptyObject(query)) {
+            newLocation += '?' + $.param(query);
+          }
+
+          location.href = newLocation;
           return false;
         });
       });
