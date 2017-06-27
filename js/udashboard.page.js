@@ -185,9 +185,18 @@
     // Type watch on search
     if (page.searchParam) {
       var form = page.selector.find('form.udashboard-search-form');
+
       if (form.length) {
+        if (form.find('.udashboard-visual-search').length) {
+          // The form uses VisualSearch.js therefore we have to stop now to
+          // prevent having two search mechanisms in conflict on the same page.
+          // See udashboard.search.js instead for the search features.
+          // @todo Improve integration of VisualSearch.js?
+          return;
+        }
 
         var input = form.find('input[type=text]');
+
         input.typeWatch({
           callback: function(value) {
             var query = {};
