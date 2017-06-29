@@ -56,14 +56,8 @@ function udashboard_custom_theme() {
  * Implements hook_menu().
  */
 function udashboard_menu() {
-
   $items = [];
 
-  $items['home'] = [
-    'page callback'     => 'udashboard_home',
-    'access callback'   => true,
-    'type'              => MENU_CALLBACK,
-  ];
   $items['admin/dashboard'] = [
     'title'             => "Dashboard",
     'page callback'     => 'udashboard_page',
@@ -123,6 +117,15 @@ function udashboard_menu_alter(&$items) {
       'type'              => MENU_CALLBACK,
       // Required to avoid file_scan_directory() calls when rebuilding menu.
       'module'            => 'udashboard',
+    ];
+  }
+
+  // Add a default home if it does not exist
+  if (!isset($items['home'])) {
+    $items['home'] = [
+      'page callback'   => 'udashboard_home',
+      'access callback' => TRUE,
+      'type'            => MENU_CALLBACK,
     ];
   }
 }
