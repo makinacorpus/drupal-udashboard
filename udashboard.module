@@ -750,6 +750,9 @@ function udashboard_library() {
   if (variable_get('udashboard.disable_css')) {
     $libraries['udashboard']['css'] = [];
   }
+  if (variable_get('udashboard.disable_js')) {
+    $libraries['udashboard_page']['js'] = [];
+  }
 
   return $libraries;
 }
