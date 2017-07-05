@@ -64,7 +64,7 @@ class Action
      *     'dialog' : load the page in a dialog
      *     'blank' : load with target=blank
      * @param string $icon
-     *   Something that is a bootstrap glyphicon name (easiest way of theming
+     *   Something that is a front awesome icon name (easiest way of theming
      *   this, sorry)
      * @param int $priority
      *   Global ordering priority for this action

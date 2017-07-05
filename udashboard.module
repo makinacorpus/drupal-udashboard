@@ -309,7 +309,7 @@ function udashboard_field_attach_view_alter(&$output, $context) {
     ];
     $markup = '<div class="udashboard-default-icon img-thumbnail"><div><div>';
     if (!empty($icon_mapping[$output['#bundle']])) {
-      $markup .= '<span class="glyphicon glyphicon-' . $icon_mapping[$output['#bundle']] . '"></span>';
+      $markup .= '<span class="fa fa-' . $icon_mapping[$output['#bundle']] . '"></span>';
     }
     else {
       $markup .= '<span>' . node_type_get_name($context['entity']) . '</span>';
@@ -334,13 +334,13 @@ function udashboard_field_attach_view_alter(&$output, $context) {
   $output['metadata']['#suffix'] = '</div>';
   if (!$context['entity']->status) {
     $output['metadata']['status_icon'] = [
-      '#markup' => '<span class="udashboard-unpublished-icon glyphicon glyphicon-warning-sign"></span>',
+      '#markup' => '<span class="udashboard-unpublished-icon fa fa-warning-sign"></span>',
       '#weight' => 5,
     ];
   }
   if ($meta_type && isset($icon_mapping[$meta_type])) {
     $output['metadata']['type_icon'] = [
-      '#markup' => '<span class="udashboard-type-icon glyphicon glyphicon-' . $icon_mapping[$meta_type] . '"></span>',
+      '#markup' => '<span class="udashboard-type-icon fa fa-' . $icon_mapping[$meta_type] . '"></span>',
       '#weight' => 10,
     ];
   }
@@ -725,6 +725,7 @@ function udashboard_library() {
         $path . '/js/seven/seven-fixes.js' => [],
       ],
       'css' => [
+        $path . '/js/seven/font-awesome.css' => ['type'  => 'file', 'media' => 'screen'],
         $path . '/js/seven/glyphicons.css' => ['type'  => 'file', 'media' => 'screen'],
         $path . '/js/seven/seven-fixes.css' => ['type'  => 'file', 'media' => 'screen'],
       ],

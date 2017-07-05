@@ -8,14 +8,14 @@
         {% if is_granted('access administration pages') %}
           <li{% if not site %} class="active"{% endif %}>
             <a class="navbar-brand{% if not site %} bg-primary{% endif %}" href="{{ url('admin') }}">
-              <span aria-hidden="true" class="glyphicon glyphicon-th-large"></span>
+              <span aria-hidden="true" class="fa fa-th-large"></span>
               <span class="sr-only">{{ "Administration"|t }}</span>
             </a>
           </li>
         {% else %}
           <li>
             <span class="navbar-text">
-              <span aria-hidden="true" class="glyphicon glyphicon-home"></span>
+              <span aria-hidden="true" class="fa fa-home"></span>
             </span>
           </li>
         {% endif %}
@@ -40,7 +40,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <span class="fa fa-cog" aria-hidden="true"></span>
             {{ user.displayName }}
             <span class="caret"></span>
           </a>
@@ -48,14 +48,14 @@
             {% if is_granted('access administration pages') %}
               <li>
                 <a href="{{ path('admin/dashboard') }}">
-                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                <span class="fa fa-cog" aria-hidden="true"></span>
                   {{ "Admin"|t }}
                 </a>
               </li>
             {% endif %}
             <li>
               <a href="{{ path('user/logout') }}">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                <span class="fa fa-off" aria-hidden="true"></span>
                 {{ "Logout"|t }}
               </a>
             </li>

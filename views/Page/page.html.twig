@@ -29,7 +29,7 @@
 
 {%- block display_mode_link -%}
   <a class="{% if link.isActive %}active {% endif %}btn btn-default" href="{{ path(link.route, link.routeParams) }}" title="{{ link.title }}" data-page-link>
-    <span class="glyphicon glyphicon-{{ link.icon }}" aria-hidden="true"></span>
+    <span class="fa fa-{{ link.icon }}" aria-hidden="true"></span>
     <span class="sr-only">{{ link.title }}</span>
   </a>
 {%- endblock -%}
@@ -88,7 +88,7 @@
       {% endif %}
       <span class="input-group-btn">
         <button type="submit" title="{{ "Search"|trans }}" class="btn btn-primary">
-          <span class="glyphicon glyphicon-search"></span>
+          <span class="fa fa-search"></span>
         </button>
       </span>
     </div>
@@ -96,11 +96,11 @@
 {% endblock %}
 
 {% block sort_link_active_asc %}
-  <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+  <span class="fa fa-menu-down" aria-hidden="true"></span>
 {% endblock %}
 
 {% block sort_link_active_desc %}
-  <span class="glyphicon glyphicon-search-up" aria-hidden="true"></span>
+  <span class="fa fa-search-up" aria-hidden="true"></span>
 {% endblock %}
 
 {#
