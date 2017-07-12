@@ -170,7 +170,7 @@ class SymfonyFormPageBuilder extends PageBuilder
             return false;
         }
 
-        return (bool) $this->getStoredData();
+        return (bool)$this->getStoredData();
     }
 
     /**
@@ -195,20 +195,32 @@ class SymfonyFormPageBuilder extends PageBuilder
     /**
      * Get the loaded items from selection
      *
-     * @param null $data
-     * @return array
+     * @return array[]
      */
-    public function getSelectedItems($data = null)
+    public function getSelectedItems()
     {
-        if (!$data) {
-            $data = $this->formset->getData();
+        try {
+            $data = $this->getStoredData('forms');
+        } catch (\InvalidArgumentException $e) {
+            return [];
         }
 
-        $selectedIds = array_keys(array_filter($data['forms'], function ($d) {
-            return !empty($d['selected']);
-        }));
+        return array_filter(
+            $data,
+            function ($d) {
+                return !empty($d['selected']);
+            }
+        );
+    }
 
-        return array_intersect_key($this->dataItems, array_flip($selectedIds));
+    /**
+     * Get the loaded items from selection
+     *
+     * @return string[]
+     */
+    public function getSelectedIds()
+    {
+        return array_keys($this->getSelectedItems());
     }
 
     /**
@@ -270,12 +282,7 @@ class SymfonyFormPageBuilder extends PageBuilder
             }
         }
 
-        $this->formset
-            ->setData(['forms' => $defaultValues])
-            ->handleRequest($request)
-        ;
-
-        $data = $this->formset->getData();
+        $this->formset->setData(['forms' => $defaultValues])->handleRequest($request);
 
         if ($this->confirmForm) {
             $this->confirmForm->handleRequest($request);
@@ -288,21 +295,32 @@ class SymfonyFormPageBuilder extends PageBuilder
                 $this->confirmationCancelled = true;
                 $data = $request->getSession()->get($this->computeId());
                 $this->formset->setData($data);
-            }
-            else {
-                // Test if the formset has been submitted and store data if we need a confirmation form
-                if ($this->formset->isSubmitted() && $this->formset->isValid()) {
-                    $data['clicked_button'] = $this->formset->getClickedButton()->getName();
-                    $request->getSession()->set($this->computeId(), $data);
-                    $this->storedData = $data;
+
+            } else if ($this->formset->isSubmitted() && $this->formset->isValid()) {
+                // Form has been submitted, store data into session and display confirm form.
+                $data = $this->formset->getData();
+
+                // Form could have been posted by a custom button in a template, case in which
+                // it will not be available within the form; moreoever, POST'ing data without
+                // using a button is valid too.
+                $clickedButton = $this->formset->getClickedButton();
+                if ($clickedButton) {
+                    $data['clicked_button'] = $clickedButton->getName();
                 } else {
-                    $this->storedData = $request->getSession()->get($this->computeId());
+                    $data['clicked_button'] = null; // Avoid errors on data fetch
                 }
+
+                $request->getSession()->set($this->computeId(), $data);
+                $this->storedData = $data;
+
+            } else {
+                // Confirm form is valid, do not attempt to fetch data from original form.
+                $this->storedData = $request->getSession()->get($this->computeId());
             }
         }
         else {
             // Else if no confirm form there's no need to use the session
-            $this->storedData = $data;
+            $this->storedData = $this->formset->getData();
         }
 
         $this->requestHandled = true;
