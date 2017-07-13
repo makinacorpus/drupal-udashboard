@@ -166,15 +166,17 @@ function udashboard_menu_breadcrumb_alter(&$active_trail, $item) {
       ]);
     }
 
-    $manager = ucms_site_manager();
-    if ($manager->hasContext()) {
-      array_splice($active_trail, 1, 0, [
-        [
-          'title' => check_plain($manager->getContext()->getAdminTitle()),
-          'href'  => '<front>',
-          'localized_options' => [],
-        ]
-      ]);
+    if (module_exists('ucms_site')) {
+      $manager = ucms_site_manager();
+      if ($manager->hasContext()) {
+        array_splice($active_trail, 1, 0, [
+          [
+            'title' => check_plain($manager->getContext()->getAdminTitle()),
+            'href'  => '<front>',
+            'localized_options' => [],
+          ]
+        ]);
+      }
     }
   }
 }
